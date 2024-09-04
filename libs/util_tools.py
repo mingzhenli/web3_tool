@@ -66,5 +66,7 @@ def object_to_dict(obj):
 
 # 将list转为数组dict
 def list_to_dicts(objs):
+    [object_to_dict(obj) for obj in objs]
+
     return [object_to_dict(obj) for obj in objs]
 

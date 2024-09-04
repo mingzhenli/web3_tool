@@ -1,6 +1,10 @@
+
 from eth_utils import to_checksum_address
+from loguru import logger
 from mnemonic import Mnemonic
 from eth_keys import keys
+
+from model.address import Address
 
 
 class AddressService:
@@ -20,10 +24,11 @@ class AddressService:
         private_key = keys.PrivateKey(seed[:32])
         # 通过私钥生成以太坊地址
         address = to_checksum_address(private_key.public_key.to_checksum_address())
-
-        print(f"助记词: {mnemonic}")
-        print(f"私钥: {private_key}")
-        print(f"地址: {address}")
+        logger.success(f"助记词: {mnemonic}")
+        logger.success(f"私钥: {private_key}")
+        logger.success(f"地址: {address}")
+        res = Address().add_address(address, mnemonic, private_key)
+        logger.success(res.id)
 
 
 
@@ -31,5 +36,7 @@ class AddressService:
 
 
 if __name__ == '__main__':
-    address_service = AddressService()
-    address_service.create_account()
+    count = 2
+    addressService = AddressService()
+    for i in range(count):
+        addressService.create_account()

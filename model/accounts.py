@@ -1,5 +1,6 @@
 from typing import Optional
 
+from loguru import logger
 from sqlalchemy import Float, Integer, text
 from sqlalchemy.dialects.mysql import TINYINT, VARCHAR
 from sqlalchemy.orm import Mapped, mapped_column
@@ -33,5 +34,11 @@ class Accounts(Base):
         data = session.query(Accounts).filter(Accounts.id < id).all()
         session.close()
         return data
+
+
+
+
+
+
 
 
