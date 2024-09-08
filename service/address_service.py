@@ -15,7 +15,7 @@ class AddressService:
         mnemonic_phrase = mnemo.generate(12) # 生成 24 个单词的助记词
         print(f"助记词: {mnemonic_phrase}")
 
-    def create_account(self):
+    def create_account(self, project):
         mnemo = Mnemonic("english")
         mnemonic = mnemo.generate(strength=256)
         # 通过助记词生成种子
@@ -27,7 +27,7 @@ class AddressService:
         logger.success(f"助记词: {mnemonic}")
         logger.success(f"私钥: {private_key}")
         logger.success(f"地址: {address}")
-        res = Address().add_address(address, mnemonic, private_key)
+        res = Address().add_address(address, mnemonic, private_key, project)
         logger.success(res.id)
 
 

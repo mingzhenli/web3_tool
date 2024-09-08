@@ -11,8 +11,8 @@ from model.address import Address
 from model.config import Config
 from model.transactions import Transactions
 
-rpc_url = 'https://ethereum-sepolia.rpc.subquery.network/public'
-chain_id = 11155111
+rpc_url = 'https://bsc-dataseed.binance.org/'
+chain_id = 56
 class TransactionsService:
 
     def __init__(self, private_key = None):
@@ -24,7 +24,7 @@ class TransactionsService:
             logger.success(self.account.address)
 
 
-    def transaction(self, item, amount, index, process = 'test'):
+    def transaction(self, item, amount, index, process):
         if self.w3.is_connected() is False:
             logger.warning('connected error')
             return False
@@ -44,8 +44,8 @@ class TransactionsService:
         signed_txn = self.w3.eth.account.sign_transaction(tx, self.private_key)
         tx_hash = self.w3.eth.send_raw_transaction(signed_txn.rawTransaction)
         logger.success(f"tx_hash: {tx_hash.hex()}")
-        tx_receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
-        if tx_receipt :
+        # tx_receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
+        if tx_hash :
             Transactions().create({
                 "address_id":item.id,
                 "amount":amount,
@@ -69,6 +69,9 @@ class TransactionsService:
                 return receipt
         except Exception as e:
             logger.error(e)
+            return False
+    def get_gass_price(self):
+        return self.w3.eth.gas_price
 
 
 
@@ -82,11 +85,20 @@ if __name__ == '__main__':
     # transaction_service = TransactionsService(private_key)
     # for index,item in enumerate(address):
     #     transaction_service.transaction(item, 0.000000001,index)
-    transactions = Transactions().get_list(1)
-    for item in transactions:
-        transaction_service = TransactionsService().check_transaction(item['hash'],item['id'])
-    logger.success('全部完成')
+    # transactions = Transactions().get_list(1)
+    # for item in transactions:
+    #     transaction_service = TransactionsService().check_transaction(item['hash'],item['id'])
+    # logger.success('全部完成')
 
     # transaction_service = TransactionsService().check_transaction('0x970d6c11b09b75d24ae1dcf3e688bd4565e6a04aa7af8faec65406186165ed12')
     # logger.success(transaction_service)
+    transaction_servier = TransactionsService()
+    while True:
+        w3 = Web3(Web3.HTTPProvider(rpc_url))
+        gass_price = w3.eth.gas_price*21000
+        gass_price_bnp =  w3.from_wei(gass_price, 'ether')
+        logger.success(f'gass_price:{gass_price}')
+        logger.success(f"gass_price_bnp:{gass_price_bnp:.12f}")
+        sleep(10)
+
 
