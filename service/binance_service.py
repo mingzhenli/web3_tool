@@ -35,6 +35,7 @@ class BinanceService:
                 network=network,
                 addressTag=address_tag
             )
+            print(result)
         except BinanceAPIException as e:
             print("Binance API Exception:", e)
         except BinanceRequestException as e:
