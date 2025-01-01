@@ -1,6 +1,6 @@
 import  argparse
 from time import sleep
-
+import datetime, time, sys
 from loguru import logger
 
 
@@ -11,6 +11,7 @@ from libs.util_tools import exeProcess, printProcess
 
 class BinanceExec():
     def __init__(self):
+        exeProcess['start'] = int(time.time())
         args = parser.parse_args()
         self.feature = args.feature
         self.process = args.process
@@ -32,7 +33,7 @@ class BinanceExec():
             hash = biance_service.with_draw(item.address)
             logger.info(f'hash:{hash}')
             if id:
-                send_model.update(item.id,{'hash':hash})
+                send_model.update(item.id,{'status':1,'hash':hash})
                 exeProcess['done'] += 1
             else:
                 exeProcess['fail'] += 1
