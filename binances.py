@@ -1,6 +1,8 @@
 import  argparse
 from loguru import logger
 
+
+from model.send_address import SendAddress
 from service.address_service import AddressService
 from service.binance_service import BinanceService
 
@@ -11,20 +13,23 @@ class BinanceExec():
         self.feature = args.feature
         self.process = args.process
         self.count = args.count
+        self.start_id = args.sid
+        self.end_id = args.eid
         match self.feature:
             case "withDraw":
                 self.with_draw()
 
     def with_draw(self):
-        BinanceService().with_draw()
+
+        send_model = SendAddress()
+        list = send_model.get_send_list(self.start_id,self.end_id)
+        biance_service = BinanceService()
+        for item in list:
+            logger.success(item.address)
+            biance_service.with_draw(item.address)
 
 
-    def create(self):
-        logger.success(f'count:{self.count}, process:{self.process}')
-        for i in range(self.count):
-            address_service = AddressService()
-            address_service.create_account(self.process)
-        logger.success("执行完成")
+
 
 
 
@@ -41,6 +46,8 @@ if __name__ == '__main__':
     parser.add_argument("-f", help="execute task name", dest="feature", type=str, default="mint")
     parser.add_argument("-p", help="process name", dest="process", type=str, default="mac")
     parser.add_argument("-c", help="count", dest="count", type=int, default="0")
+    parser.add_argument("-sid", help="start id", dest="sid", type=int, default=1)
+    parser.add_argument("-eid", help="end id", dest="eid", type=int, default=200)
 
     try:
         BinanceExec()
