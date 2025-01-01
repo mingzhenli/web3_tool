@@ -13,6 +13,13 @@ exeProcess = {
     'rest': 0,
 }
 
+
+def printProcess(exeProcess):
+    exeProcess['rest'] = exeProcess['total'] - exeProcess['done']
+    exeProcess['average'] = (int(time.time()) - exeProcess['start']) / (exeProcess['done']+exeProcess['fail'])
+    logger.warning(f"process:{exeProcess['process']}, total:{exeProcess['total']}, done:{exeProcess['done']}, "
+                   f"rest:{exeProcess['rest']}, fail:{exeProcess['fail']}, average:{round(exeProcess['average'], 3)}s")
+
 def get_today_sign():
     return datetime.now().strftime('%y%m%d')
 

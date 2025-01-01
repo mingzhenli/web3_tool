@@ -35,13 +35,22 @@ class BinanceService:
                 network=network,
                 addressTag=address_tag
             )
-            print(result)
+            logger.info(result)
+            if result and 'id' in result:
+                logger.success(result['id'])
+                return result['id']
+            else:
+                return False
         except BinanceAPIException as e:
-            print("Binance API Exception:", e)
+
+            logger.error(f'Binance API Exception: {e}')
+            return False
         except BinanceRequestException as e:
-            print("Binance Request Exception:", e)
+            logger.error(f'Binance Request Exception: {e}')
+            return False
         except Exception as e:
-            print("Exception:", e)
+            logger.error(f'Exception: {e}')
+            return False
 
 
 

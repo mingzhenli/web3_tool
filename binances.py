@@ -5,7 +5,7 @@ from loguru import logger
 from model.send_address import SendAddress
 from service.address_service import AddressService
 from service.binance_service import BinanceService
-
+from libs.util_tools import exeProcess, printProcess
 
 class BinanceExec():
     def __init__(self):
@@ -24,9 +24,17 @@ class BinanceExec():
         send_model = SendAddress()
         list = send_model.get_send_list(self.start_id,self.end_id)
         biance_service = BinanceService()
+        exeProcess['total'] = len(list)
         for item in list:
             logger.success(item.address)
-            biance_service.with_draw(item.address)
+            hash = biance_service.with_draw(item.address)
+            logger.info(f'hash:{hash}')
+            if id:
+                send_model.update(item.id,{'hash':hash})
+                exeProcess['done'] += 1
+            else:
+                exeProcess['fail'] += 1
+            printProcess(exeProcess)
 
 
 

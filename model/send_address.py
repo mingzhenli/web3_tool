@@ -26,3 +26,9 @@ class SendAddress(Base):
         session.close()
         return list
 
+    def update(self, id, data):
+        res = session.query(SendAddress).filter(SendAddress.id == id).update(data)
+        session.commit()
+        session.close()
+        return res
+
