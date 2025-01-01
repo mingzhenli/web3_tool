@@ -1,4 +1,6 @@
 import  argparse
+from time import sleep
+
 from loguru import logger
 
 
@@ -35,6 +37,7 @@ class BinanceExec():
             else:
                 exeProcess['fail'] += 1
             printProcess(exeProcess)
+            sleep(2)
 
 
 
