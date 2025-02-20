@@ -30,6 +30,7 @@ class BinanceExec():
         exeProcess['total'] = len(list)
         for item in list:
             logger.success(item.address)
+            biance_service.belance()
             hash = biance_service.with_draw(item.address)
             logger.info(f'hash:{hash}')
             if id:
