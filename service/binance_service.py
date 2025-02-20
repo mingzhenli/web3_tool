@@ -23,7 +23,7 @@ class BinanceService:
     def with_draw(self,address):
         # 提币参数
         asset = 'ETH'  # 币种，如 BTC、ETH
-        amount = 0.0062  # 提币数量
+        amount = 0.004  # 提币数量
         # address = "your_wallet_address"  # 提币地址
         network = "Optimism"  # 提币网络，如 BTC、BSC
         address_tag = None  # 标签（如 XRP、XMR 等需要标签）
