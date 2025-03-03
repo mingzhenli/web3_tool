@@ -28,6 +28,7 @@ class BinanceExec():
         list = send_model.get_send_list(self.start_id,self.end_id)
         biance_service = BinanceService()
         exeProcess['total'] = len(list)
+
         for item in list:
             logger.success(item.address)
             biance_service.belance()
