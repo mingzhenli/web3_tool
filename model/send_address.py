@@ -16,7 +16,7 @@ class SendAddress(Base):
     status: Mapped[Optional[int]] = mapped_column(TINYINT(1), server_default=text("'0'"))
     hash: Mapped[Optional[str]] = mapped_column(String(255, 'utf8mb4_general_ci'))
     project: Mapped[Optional[str]] = mapped_column(String(50, 'utf8mb4_general_ci'))
-
+    balance:Mapped[int] = mapped_column(Integer)
 
     def get_send_list(self,start_id,end_id):
         smpt =  (select(SendAddress.id, SendAddress.address, SendAddress.status).filter(SendAddress.status == 0).
@@ -31,4 +31,12 @@ class SendAddress(Base):
         session.commit()
         session.close()
         return res
+
+
+    def get_balance_list(self):
+        smpt =  (select(SendAddress.id, SendAddress.address, SendAddress.status).filter(SendAddress.balance.is_(None))
+                 )
+        list  = session.execute(smpt).mappings().all()
+        session.close()
+        return list
 

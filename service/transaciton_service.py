@@ -11,8 +11,8 @@ from model.address import Address
 from model.config import Config
 from model.transactions import Transactions
 
-rpc_url = 'https://bsc-dataseed.binance.org/'
-chain_id = 56
+rpc_url = 'https://eth.llamarpc.com'
+chain_id = 1
 class TransactionsService:
 
     def __init__(self, private_key = None):
@@ -61,6 +61,7 @@ class TransactionsService:
                 "process": process,
                 "status": 0
             })
+
     def check_transaction(self, hash,id):
         receipt = self.w3.eth.get_transaction_receipt(hash)
         try:
@@ -70,8 +71,14 @@ class TransactionsService:
         except Exception as e:
             logger.error(e)
             return False
+
     def get_gass_price(self):
         return self.w3.eth.gas_price
+
+    def get_get_balance(self, address):
+        balance = self.w3.eth.get_balance(address)
+        return self.w3.from_wei(balance, 'ether')
+
 
 
 

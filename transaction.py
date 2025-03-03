@@ -1,8 +1,10 @@
 import  argparse
 from loguru import logger
 
+from libs.util_tools import exeProcess, printProcess
 from model.address import Address
 from model.config import Config
+from model.send_address import SendAddress
 from model.transactions import Transactions
 from service.transaciton_service import TransactionsService
 
@@ -18,6 +20,8 @@ class TransactionExec():
                 self.send()
             case "check":
                 self.check_tran()
+            case 'get_balance':
+                self .get_balance()
 
 
     def send(self):
@@ -49,6 +53,19 @@ class TransactionExec():
             else:
                 logger.success(f"第{index + 1}交易失败，id:{item.id}")
         logger.success('程序执行完成')
+
+    def get_balance(self):
+        list = SendAddress().get_balance_list()
+        exeProcess['total'] = len(list)
+        for item in list:
+            balance = TransactionsService().get_get_balance(item.address)
+            res=SendAddress().update(item.id,{'balance':balance})
+            if res:
+                exeProcess['done'] += 1
+            else:
+                exeProcess['fail']+=1
+            printProcess(exeProcess)
+
 
 
 
