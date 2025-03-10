@@ -22,10 +22,10 @@ class BinanceService:
 
     def with_draw(self,address):
         # 提币参数
-        asset = 'ETH'  # 币种，如 BTC、ETH
-        amount = 0.001  # 提币数量
+        asset = 'SUI'  # 币种，如 BTC、ETH
+        amount = 5.2  # 提币数量
         # address = "your_wallet_address"  # 提币地址
-        network = "ARBITRUM"  # 提币网络，如 BTC、BSC
+        network = "SUI"  # 提币网络，如 BTC、BSC
         address_tag = None  # 标签（如 XRP、XMR 等需要标签）
         try:
             result = self.binance_client.withdraw(
