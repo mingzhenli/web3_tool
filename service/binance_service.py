@@ -16,7 +16,7 @@ class BinanceService:
 
 
     def belance(self):
-        asset = 'ETH'
+        asset = 'SUI'
         balance = self.binance_client.get_asset_balance(asset = asset)
         logger.success(f'balance:{balance}')
 
