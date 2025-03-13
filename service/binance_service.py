@@ -15,7 +15,8 @@ class BinanceService:
 
 
     def get_network(self):
-       return self.binance_client.get_all_coins_info({'timestamp':datetime.now().timestamp() * 1000})
+        time = {'timestamp': datetime.now().timestamp() * 1000}
+        return self.binance_client.get_all_coins_info()
 
     def belance(self,asset = 'ETH'):
 
