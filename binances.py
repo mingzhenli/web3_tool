@@ -25,8 +25,10 @@ class BinanceExec():
                 self.with_draw()
             case 'network':
                 self.network()
+
     def network(self):
         networks = BinanceService().get_network()
+        logger.info(123)
         logger.info(networks)
 
     def with_draw(self):
