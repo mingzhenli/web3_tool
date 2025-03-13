@@ -1,3 +1,4 @@
+from datetime import datetime
 
 from binance import Client, BinanceAPIException, BinanceRequestException
 from loguru import logger
@@ -11,14 +12,17 @@ class BinanceService:
         api_key =  binance_config['api_key']
         secret_key= binance_config['secret_key']
         self.binance_client = Client(api_key,secret_key)
-        logger.info(api_key)
 
 
+    def get_network(self):
+       return self.binance_client.get_all_coins_info({'timestamp':datetime.now().timestamp() * 1000})
 
-    def belance(self):
-        asset = 'SUI'
+    def belance(self,asset = 'ETH'):
+
         balance = self.binance_client.get_asset_balance(asset = asset)
         logger.success(f'balance:{balance}')
+
+
 
     def with_draw(self,address):
         # 提币参数

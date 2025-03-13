@@ -1,6 +1,8 @@
 import  argparse
 from time import sleep
 import datetime, time, sys
+
+from eth_utils.network import networks
 from loguru import logger
 
 
@@ -21,6 +23,11 @@ class BinanceExec():
         match self.feature:
             case "withDraw":
                 self.with_draw()
+            case 'network':
+                self.network()
+    def network(self):
+        networks = BinanceService().get_network()
+        logger.info(networks)
 
     def with_draw(self):
 
