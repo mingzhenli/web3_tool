@@ -1,4 +1,5 @@
 import  argparse
+import json
 from time import sleep
 import datetime, time, sys
 
@@ -28,8 +29,7 @@ class BinanceExec():
 
     def network(self):
         networks = BinanceService().get_network()
-        for item in networks:
-            logger.success(item)
+        logger.info(json.dumps(networks))
 
     def with_draw(self):
 
