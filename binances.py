@@ -28,8 +28,8 @@ class BinanceExec():
 
     def network(self):
         networks = BinanceService().get_network()
-        logger.info(123)
-        logger.info(networks)
+        for item in networks:
+            logger.success(item)
 
     def with_draw(self):
 
