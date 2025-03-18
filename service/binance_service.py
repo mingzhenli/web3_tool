@@ -28,7 +28,7 @@ class BinanceService:
     def with_draw(self,address):
         # 提币参数
         asset = 'ETH'  # 币种，如 BTC、ETH
-        amount =  round(random.uniform(0.0115,0.0132),7) # 提币数量
+        amount =  round(random.uniform(0.0118,0.0132),7) # 提币数量
         # address = "your_wallet_address"  # 提币地址
         network = "ARBITRUM"  # 提币网络，如 BTC、BSC
         address_tag = None  # 标签（如 XRP、XMR 等需要标签）
