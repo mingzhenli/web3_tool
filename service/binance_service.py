@@ -1,5 +1,5 @@
+import random
 from datetime import datetime
-
 from binance import Client, BinanceAPIException, BinanceRequestException
 from loguru import logger
 
@@ -28,7 +28,7 @@ class BinanceService:
     def with_draw(self,address):
         # 提币参数
         asset = 'ETH'  # 币种，如 BTC、ETH
-        amount = 0.0144  # 提币数量
+        amount =  random.uniform(0.0115,0.0132) # 提币数量
         # address = "your_wallet_address"  # 提币地址
         network = "ARBITRUM"  # 提币网络，如 BTC、BSC
         address_tag = None  # 标签（如 XRP、XMR 等需要标签）
@@ -41,7 +41,7 @@ class BinanceService:
                 addressTag=address_tag
             )
             logger.info(result)
-            if result and 'id' in result:
+            if result and 'id' in result and result['id']:
                 logger.success(result['id'])
                 return result['id']
             else:
@@ -58,7 +58,19 @@ class BinanceService:
             return False
 
 
+if __name__ == '__main__':
+    amonut = random.uniform(0.0115,0.0132)
+    logger.success(amonut)
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
-    res = BinanceService()
-    res.with_draw()
+    # res = BinanceService()
+    # res.with_draw()
+    random.uniform
+    random_number = random.uniform(0.0115, 0.0132)
