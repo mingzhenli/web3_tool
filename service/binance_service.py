@@ -28,7 +28,7 @@ class BinanceService:
     def with_draw(self,address):
         # 提币参数
         asset = 'ETH'  # 币种，如 BTC、ETH
-        amount =  random.uniform(0.0115,0.0132) # 提币数量
+        amount =  round(random.uniform(0.0115,0.0132),7) # 提币数量
         # address = "your_wallet_address"  # 提币地址
         network = "ARBITRUM"  # 提币网络，如 BTC、BSC
         address_tag = None  # 标签（如 XRP、XMR 等需要标签）
@@ -60,7 +60,7 @@ class BinanceService:
 
 
 if __name__ == '__main__':
-    amonut = random.uniform(0.0115,0.0132)
+    amonut = round(random.uniform(0.0115,0.0132),7)
     logger.success(amonut)
 
 
@@ -70,8 +70,3 @@ if __name__ == '__main__':
 
 
 
-if __name__ == '__main__':
-    # res = BinanceService()
-    # res.with_draw()
-    random.uniform
-    random_number = random.uniform(0.0115, 0.0132)
