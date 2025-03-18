@@ -40,6 +40,7 @@ class BinanceService:
                 network=network,
                 addressTag=address_tag
             )
+            logger.info(f'send_amount:{amount}')
             logger.info(result)
             if result and 'id' in result and result['id']:
                 logger.success(result['id'])
