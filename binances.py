@@ -43,7 +43,7 @@ class BinanceExec():
             biance_service.belance()
             hash = biance_service.with_draw(item.address)
             logger.info(f'hash:{hash}')
-            if id:
+            if hash:
                 send_model.update(item.id,{'status':1,'hash':hash})
                 exeProcess['done'] += 1
             else:
